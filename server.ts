@@ -17,6 +17,7 @@ fastify.register(require("fastify-knexjs"), {
   connection: {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
+    port: process.env.DB_PORT,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
   },
@@ -78,5 +79,7 @@ fastify.listen({ port: port, host: "0.0.0.0" }, function(err, address) {
   }
   // @ts-ignore
   fastify.initializeDatabaseTableWithBaseSettings();
+  const host = process.env.DB_HOST;
+  fastify.log.info(`server db host name ${host}`);
   fastify.log.info(`server listening on ${address}`);
 });
