@@ -12,24 +12,16 @@ RUN npm run build
 
 # ==== RUN =======
 # Set the env to "production"
-ARG port=${PORT}
-ARG service_name=${SERVICE_NAME}
-ARG db_host=${DB_HOST}
-ARG db_user=${DB_USER}
-ARG db_pass=${DB_PASS}
-ARG db_name=${DB_NAME}
-ARG db_port=${DB_PORT}
-ARG db_client=${DB_CLIENT}
 ENV ENV develop
 ENV VERSION 0.0.1
-ENV PORT=$port
-ENV SERVICE_NAME=$service_name
-ENV DB_HOST=$db_host
-ENV DB_USER=$db_user
-ENV DB_PASS=$db_pass
-ENV DB_NAME=$db_name
-ENV DB_PORT=$db_port
-ENV DB_CLIENT=$db_client
+ENV PORT=${PORT}
+ENV SERVICE_NAME=${SERVICE_NAME}
+ENV DB_HOST=${DB_HOST}
+ENV DB_USER=${DB_USER}
+ENV DB_PASS=${DB_PASS}
+ENV DB_NAME=${DB_NAME}
+ENV DB_PORT=${DB_PORT}
+ENV DB_CLIENT=${DB_CLIENT}
 ENV FILE_ENCODING utf8
 # Expose the port on which the app will be running (8080 is the default that `serve` uses)
 #EXPOSE 8080
