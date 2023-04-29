@@ -10,10 +10,10 @@ function initializeDatabaseTableWithBaseSettingsPlugin(fastify: FastifyInstance,
     const { knex } = fastify;
     try{
       // @ts-ignore
-      const exists = await fastify.knex.schema.hasTable(serviceName);
+      const exists = await knex.schema.hasTable(serviceName);
       if (!exists) {
         // @ts-ignore
-        const createTable = await fastify.knex.schema.createTable(serviceName, (table: any) => {
+        const createTable = await knex.schema.createTable(serviceName, (table: any) => {
           table.increments('id').primary();
           table.string('first_name');
           table.string('last_name');
