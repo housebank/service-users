@@ -15,9 +15,9 @@ function initializeDatabaseTableWithBaseSettingsPlugin(fastify: FastifyInstance,
           table.increments('id').primary();
           table.string('first_name');
           table.string('last_name');
-          table.specificType('address', 'text[]');
-          table.timestamp('created_at', { useTz: true });
-          table.timestamp('updated_at', { useTz: true });
+          table.string('address');
+          table.timestamp('created_at', { useTz: true }).defaultTo(fastify.knex.fn.now(6));
+          table.timestamp('updated_at', { useTz: true }).defaultTo(fastify.knex.fn.now(6));
           table.string('phone');
           table.string('city');
           table.string('country');
