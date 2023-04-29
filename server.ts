@@ -13,7 +13,7 @@ const fastify = Fastify({
 const port = process.env.PORT ? Number(process.env.PORT) : 8002;
 
 fastify.register(require("fastify-knexjs"), {
-  client: process.env.DB_CLIENT,
+  client: "pg",
   version: "15",
   connection: {
     host: process.env.DB_HOST,
