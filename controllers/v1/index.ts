@@ -8,16 +8,21 @@ export const queryAll = async (req: FastifyRequest, reply: FastifyReply) => {
   const { knex } = req.server as FastifyInstance ;
   try {
     const queryAll = await knex<IServiceDefault>(_serviceName).select().timeout(1000, { cancel: true });
-    reply.send({
+    reply
+      .code(200)
+      .send({
       version: _version,
       data: queryAll,
       status: 200,
     });
   } catch (error: any) {
-    reply.send({
+    const _code = reply.statusCode >= 299 ? 500 : 400;
+    reply
+      .code(_code)
+      .send({
       error: error.message,
       version: _version,
-      status: 401,
+      status: _code,
     });
   }
 };
@@ -33,16 +38,21 @@ export const queryById = async (req: FastifyRequest, reply: FastifyReply) => {
     const getOneById = await knex<IServiceDefault>(_serviceName).select().where("id", "=", Number(id))
       .timeout(1000, { cancel: true });
 
-    reply.send({
+    reply
+      .code(200)
+      .send({
       version: _version,
       data: getOneById,
       status: 200,
     });
   } catch (error: any) {
-    reply.send({
+    const _code = reply.statusCode >= 299 ? 500 : 400;
+    reply
+      .code(_code)
+      .send({
       error: error.message,
       version: _version,
-      status: 401,
+      status: _code,
     });
   }
 };
@@ -54,16 +64,21 @@ export const insertNew = async (req: FastifyRequest, reply: FastifyReply) => {
   const { knex } = req.server as FastifyInstance ;
   try {
     const insertNewQuery = await knex<IServiceDefault>(_serviceName).insert(req.body, ["id"]);
-    reply.send({
+    reply
+      .code(201)
+      .send({
       version: _version,
       data: insertNewQuery,
-      status: 200,
+      status: 201,
     });
   } catch (error:any) {
-    reply.send({
+    const _code = reply.statusCode >= 299 ? 500 : 400;
+    reply
+      .code(_code)
+      .send({
       error: error.message,
       version: _version,
-      status: 401,
+      status: _code,
     });
   }
 };
@@ -85,16 +100,21 @@ export const updateById = async (req: FastifyRequest, reply: FastifyReply) => {
     updateObject.updated_at = (new Date()).toISOString();
     const updateQuery = await knex<IServiceDefault>(_serviceName).where("id", "=", Number(id))
       .update(updateObject, ["id", "updated_at"]);
-    reply.send({
+    reply
+      .code(200)
+      .send({
       version: _version,
       data: updateQuery,
       status: 200,
     });
   } catch (error: any) {
-    reply.send({
+    const _code = reply.statusCode >= 299 ? 500 : 400;
+    reply
+      .code(_code)
+      .send({
       error: error.message,
       version: _version,
-      status: 401,
+      status: _code,
     });
   }
 };
@@ -108,16 +128,21 @@ export const deleteById = async (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = req.params as RequestParamsDefault;
   try {
     const deleteQuery = await knex<IServiceDefault>(_serviceName).where("id", "=", Number(id)).del(["id"]);
-    reply.send({
+    reply
+      .code(200)
+      .send({
       version: _version,
       data: deleteQuery,
       status: 200,
     });
   } catch (error:any) {
-    reply.send({
+    const _code = reply.statusCode >= 299 ? 500 : 400;
+    reply
+      .code(_code)
+      .send({
       error: error.message,
       version: _version,
-      status: 401,
+      status: _code,
     });
   }
 };
