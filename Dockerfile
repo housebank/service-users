@@ -24,6 +24,6 @@ ENV DB_PORT=${DB_PORT}
 ENV DB_CLIENT=${DB_CLIENT}
 ENV FILE_ENCODING utf8
 # Expose the port on which the app will be running (8080 is the default that `serve` uses)
-#EXPOSE 8080
+EXPOSE 8004
 # Start the app
 CMD [ "npm", "start" ]
