@@ -6,6 +6,8 @@ function initializeDatabaseTableWithBaseSettingsPlugin(fastify: FastifyInstance,
                                             done: FastifyPluginCallback) {
   fastify.decorate('initializeDatabaseTableWithBaseSettings', async () => {
     const { serviceName } = opts;
+    // @ts-ignore
+    const { knex } = fastify;
     try{
       // @ts-ignore
       const exists = await fastify.knex.schema.hasTable(serviceName);
@@ -16,8 +18,8 @@ function initializeDatabaseTableWithBaseSettingsPlugin(fastify: FastifyInstance,
           table.string('first_name');
           table.string('last_name');
           table.string('address');
-          table.timestamp('created_at', { useTz: true }).defaultTo(fastify.knex.fn.now(6));
-          table.timestamp('updated_at', { useTz: true }).defaultTo(fastify.knex.fn.now(6));
+          table.timestamp('created_at', { useTz: true }).defaultTo(knex.fn.now(6));
+          table.timestamp('updated_at', { useTz: true }).defaultTo(knex.fn.now(6));
           table.string('phone');
           table.string('city');
           table.string('country');
