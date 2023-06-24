@@ -3,3 +3,9 @@ node_modules
 build
 yarn.lock
 .env
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
