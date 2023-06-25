@@ -15,20 +15,21 @@ function initializeDatabaseTableWithBaseSettingsPlugin(fastify: FastifyInstance,
         // @ts-ignore
         const createTable = await knex.schema.createTable(serviceName, (table: any) => {
           table.increments('id').primary();
-          table.string('first_name');
-          table.string('last_name');
-          table.string('address');
+          table.string('first_name').notNullable();
+          table.string('last_name').notNullable();
+          table.string('address').notNullable();
           table.timestamp('created_at', { useTz: true }).defaultTo(knex.fn.now(6));
           table.timestamp('updated_at', { useTz: true }).defaultTo(knex.fn.now(6));
-          table.string('phone');
-          table.string('city');
-          table.string('country');
-          table.string('role');
-          table.string('status');
-          table.boolean('verified');
+          table.string('phone').notNullable();
+          table.string('city').notNullable();
+          table.string('country').notNullable();
+          table.string('role').notNullable();
+          table.boolean('active').defaultTo(false);
+          table.boolean('verified').defaultTo(false);
+          table.boolean('deleted').defaultTo(false);
           table.integer('user_media_id')/*.unsigned().inTable('media').references("id")*/;
-          table.integer('nin');
-          table.string('postal_code');
+          table.integer('nin').notNullable();
+          table.string('postal_code').notNullable();
         });
         fastify.log.info('Database Table with name ' + serviceName + ' was created ==> ' + exists);
         return createTable;

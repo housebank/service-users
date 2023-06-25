@@ -9,7 +9,7 @@ export interface IServiceDefault {
   city?: string;
   country?: string;
   role?: string;
-  status?: string;
+  active?: boolean;
   verified?: boolean;
   user_media_id?: number;
   nin?: number;

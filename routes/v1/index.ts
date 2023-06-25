@@ -52,15 +52,18 @@ const getByIdEndpoint = {
 const createNewEndpoint = {
   schema: {
     body: { type: "array", items: {type: "object", properties:{
-          name: { type: "string" },
-          nutrition_id: { type: "integer" },
-          tags: {type: "array", items: {type: "string"}, maxItems: 999},
-          visibility: { type: "boolean" },
-          allergy_info: { type: "string" },
-          description: { type: "string" },
-          is_meal_prep: { type: "boolean" },
-          store_id: { type: "integer" },
-          media_id: { type: "integer" },
+          first_name: { type: "string" },
+          last_name: { type: "string" },
+          address: { type: "string" },
+          phone: { type: "string" },
+          city: { type: "string" },
+          country: { type: "string" },
+          role: { type: "string" },
+          active: { type: "boolean" },
+          verified: { type: "boolean" },
+          user_media_id: { type: "integer" },
+          nin: { type: "integer" },
+          postal_code: { type: "string" },
         }}, maxItems: 999},
     response: {
       200: {
