@@ -10,7 +10,7 @@ const createRandomUser = (role: string):IServiceDefault =>{
     city: faker.address.city(),
     country: faker.address.country(),
     role: role ,
-    status: "active",
+    active: true,
     verified: false,
     user_media_id: faker.datatype.number(),
     nin: Number(faker.random.numeric(5)),
