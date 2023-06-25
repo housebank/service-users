@@ -1,0 +1,50 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.2
+  docker: circleci/docker@2.2.0
+
+jobs:
+  build_and_test:
+    executor: node/default
+    steps:
+      - checkout
+      - when:
+          condition:
+            equal: [ develop, << pipeline.git.branch >> ]
+          steps:
+            - node/install-packages:
+                pkg-manager: yarn
+            - run:
+                command: yarn test
+                name: Run unit tests
+            - run:
+                command: yarn build
+                name: Build service
+  build_docker_image:
+    executor: docker/docker
+    steps:
+      - checkout
+      - when:
+          condition:
+            equal: [ develop, << pipeline.git.branch >> ]
+          steps:
+            - setup_remote_docker
+            - checkout
+            - docker/check
+            - docker/build:
+                extra_build_args: '--build-arg PORT=$CIRCLE_PORT --build-arg SERVICE_NAME=$CIRCLE_SERVICE_NAME 
+                --build-arg DB_HOST=$CIRCLE_DB_HOST --build-arg DB_USER=$CIRCLE_DB_USER 
+                --build-arg DB_PASS=$CIRCLE_DB_PASS --build-arg DB_NAME=$CIRCLE_DB_NAME 
+                --build-arg DB_PORT=$CIRCLE_DB_PORT --build-arg DB_CLIENT=$CIRCLE_DB_CLIENT'
+                image: housebankng/$CIRCLE_PROJECT_REPONAME
+                tag: latest
+            - docker/push:
+                image: housebankng/$CIRCLE_PROJECT_REPONAME
+                tag: latest
+workflows:
+  Build_and_run_unit_tests:
+    jobs:
+      - build_and_test
+  Build_and_deploy_service_to_docker_hub:
+    jobs:
+      - build_docker_image
