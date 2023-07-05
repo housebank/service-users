@@ -8,7 +8,11 @@
     "build": "tsc -p tsconfig.json",
     "start": "node build/server.js",
     "dev": "tsc -w & nodemon build/server.js",
-    "test": "tap --ts"
+    "test": "tap --ts",
+    "mg-up": "knex migrate:up",
+    "mg-down": "knex migrate:down",
+    "mg-list": "knex migrate:list",
+    "mg-latest": "knex migrate:latest"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
